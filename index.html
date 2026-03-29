@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Luxury 💍</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+  background:linear-gradient(180deg,#fff0f6,#ffe3ec);
+  overflow-x:hidden;
+  color:#333;
+}
+
+/* 💖 ВРАЩАЮЩИЕСЯ СЕРДЕЧКИ */
+.heart-rotate{
+  position:fixed;
+  top:-50px;
+  font-size:20px;
+  color:#ff4f9a;
+  animation:spinFall linear forwards;
+  z-index:9999;
+  pointer-events:none;
+  filter:drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+@keyframes spinFall{
+  0%{
+    transform:translateY(0) rotate(0deg) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform:translateY(110vh) rotate(720deg) scale(0.8);
+    opacity:0;
+  }
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  position:relative;
+}
+
+.hero video{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  z-index:-1;
+}
+
+.card{
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  text-align:center;
+}
+
+/* SECTION */
+section{
+  padding:80px 20px;
+  text-align:center;
+}
+
+/* CALENDAR */
+.glass{
+  max-width:500px;
+  margin:0 auto;
+  padding:20px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.4);
+  backdrop-filter:blur(15px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
+}
+
+#calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+
+.day{
+  padding:10px;
+  border-radius:12px;
+  background:white;
+}
+
+.wedding{
+  background:linear-gradient(45deg,#ff4f9a,hotpink);
+  color:white;
+  font-weight:bold;
+}
+
+/* COUNTDOWN */
+.countdown{
+  margin-top:20px;
+  padding:15px;
+  border-radius:15px;
+  background:rgba(0,0,0,0.05);
+  position:relative;
+  overflow:hidden;
+}
+
+#countdown{
+  font-size:28px;
+  font-weight:bold;
+  color:#ff4f9a;
+  margin-top:10px;
+}
+
+/* SCRATCH */
+#scratchCanvas{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  cursor:crosshair;
+}
+
+.wedding{
+  background:linear-gradient(45deg,#ff4f9a,hotpink,gold);
+  color:white;
+  font-weight:bold;
+  box-shadow:0 0 25px hotpink;
+  transform:scale(1.15);
+  animation:calendarGlow 1.5s infinite;
+  position:relative;
+}
+
+/* 💍 плавающее кольцо */
+.wedding::after{
+  content:"💍";
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  font-size:16px;   /* 👈 уменьшили размер */
+  animation:ringBounce 1s infinite;
+}
+
+/* ✨ свет */
+@keyframes calendarGlow{
+  0%{box-shadow:0 0 10px hotpink;}
+  50%{box-shadow:0 0 30px rgb(224, 81, 188);}
+  100%{box-shadow:0 0 10px hotpink;}
+}
+
+/* 💍 прыжок кольца */
+@keyframes ringBounce{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.4);}
+  100%{transform:scale(1);}
+}
+
+.icon{
+  width:28px;
+  height:28px;
+  vertical-align:middle;
+  margin:0 6px;
+  animation:pop 1.5s infinite ease-in-out;
+}
+
+@keyframes pop{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+#musicBtn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  font-size:26px;
+  background:rgba(255,255,255,0.6);
+  padding:10px 12px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:10000;
+  backdrop-filter:blur(10px);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+
+#musicBtn:hover{
+  transform:scale(1.1);
+}
+
+
+
+
+
+
+
+
+/* ✨ АНИМАЦИЯ ПОЯВЛЕНИЯ */
+.fadeUp{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s ease;
+}
+.fadeUp.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* 💌 БЛОК ПРИГЛАШЕНИЯ */
+.invite .big{
+  max-width:650px;
+  margin:auto;
+  padding:30px;
+  border-radius:30px;
+}
+
+/* 🏷️ ЗАГОЛОВКИ */
+.title{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.subtitle{
+  font-size:18px;
+  color:#666;
+  margin-bottom:10px;
+}
+
+/* 📅 КАРТОЧКА ДАТЫ */
+.dateCard{
+  margin:15px 0;
+  padding:15px;
+  border-radius:25px;
+  background:linear-gradient(45deg,#fff,#ffe6f0);
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+  animation:glowCard 3s infinite;
+}
+
+@keyframes glowCard{
+  0%{box-shadow:0 0 10px pink;}
+  50%{box-shadow:0 0 30px hotpink;}
+  100%{box-shadow:0 0 10px pink;}
+}
+
+/* 💎 КНОПКА PREMIUM */
+.luxBtn{
+  padding:14px 35px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(45deg,gold,hotpink);
+  color:white;
+  font-size:17px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:0.4s;
+}
+
+.luxBtn::before{
+  content:"";
+  position:absolute;
+  width:300%;
+  height:300%;
+  background:radial-gradient(circle,rgba(255,255,255,0.5) 10%,transparent 40%);
+  top:-100%;
+  left:-100%;
+  transform:rotate(25deg);
+  transition:0.5s;
+}
+
+.luxBtn:hover::before{
+  top:0;
+  left:0;
+}
+
+.luxBtn:hover{
+  transform:scale(1.1);
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+
+/* 🧾 TIMELINE */
+.timelineBox{
+  max-width:650px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  margin-top:1px;
+}
+
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  padding:18px 25px;
+  border-radius:20px;
+  background:linear-gradient(45deg,#fff,#fff0f6);
+  box-shadow:0 15px 30px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.item:hover{
+  transform:scale(1.05);
+}
+
+.item span{
+  color:#ff4f9a;
+  font-weight:bold;
+}
+
+/* 🌸 FOOTER */
+.footer{
+  margin-top:20px;
+  text-align:center;
+  padding:50px;
+  background:linear-gradient(45deg,#ff4f9a,hotpink);
+  color:white;
+  border-top-left-radius:40px;
+  border-top-right-radius:40px;
+}
+
+</style>
+</head>
+
+<body>
+  <!-- 🔊 КНОПКА МУЗЫКИ -->
+<div id="musicBtn">🔇</div>
+
+<audio id="bgMusic" loop>
+  <source src="Alena - Ярмарка судеб.mp3" type="audio/mpeg">
+</audio>
+
+<div class="hero">
+  <video autoplay muted loop>
+    <source src="204803-925552205.mp4">
+  </video>
+
+ 
+    <div class="card">
+    <h1>Бахтовар   <img src="колисо-removebg-preview.png" class="icon">  Нозанин</h1>
+    <p>Приглашаем вас на нашу свадьбу  </p>
+
+  </div>
+
+</div>
+
+<section>
+  <h2>📅 Свадебный календарь</h2>
+
+  <div class="glass">
+
+    <div id="calendar"></div>
+
+    <div class="countdown">
+      <h3>⏳ До свадьбы осталось</h3>
+      <div id="countdown"></div>
+      <canvas id="scratchCanvas"></canvas>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="invite">
+  <div class="glass big fadeUp">
+
+    <h2 class="title">💌 Дорогие гости</h2>
+
+    <p class="subtitle">
+      Мы будем счастливы, если вы разделите с нами этот волшебный день 💖
+    </p>
+
+    <div class="dateCard">
+      <h1>31 марта 2026</h1>
+      <p>📍 Ресторан «Зимний сад»</p>
+      <p>🕔 Начало в 17:00</p>
+    </div>
+
+    <button class="luxBtn">Подтвердить участие</button>
+
+  </div>
+</section>
+
+
+<section class="timeline">
+  <h2 class="title fadeUp">💍 План свадьбы</h2>
+
+  <div class="timelineBox">
+
+    <div class="item fadeUp"><span>16:00</span> Церемония</div>
+    <div class="item fadeUp"><span>16:45</span> Коктейли</div>
+    <div class="item fadeUp"><span>18:00</span> Ужин</div>
+    <div class="item fadeUp"><span>18:45</span> Празднование</div>
+    <div class="item fadeUp"><span>19:00</span> Первый танец</div>
+    <div class="item fadeUp"><span>19:30</span> Поздравления</div>
+    <div class="item fadeUp"><span>20:00</span> Подача блюда</div>
+    <div class="item fadeUp"><span>20:30</span> Основное блюдо</div>
+    <div class="item fadeUp"><span>21:00</span> Танец с отцом</div>
+
+  </div>
+</section>
+
+
+<footer class="footer fadeUp">
+  <h2>Nozanin 💖 Baha</h2>
+  <p>31.03.2026</p>
+</footer>
+
+
+
+
+
+<script>
+
+const weddingDate = new Date("2026-03-31T00:00:00");
+
+// 💖 вращающиеся сердечки
+setInterval(()=>{
+  const h = document.createElement("div");
+  h.className = "heart-rotate";
+  h.innerText = "💖";
+
+  h.style.left = Math.random() * window.innerWidth + "px";
+  h.style.animationDuration = (3 + Math.random() * 3) + "s";
+  h.style.fontSize = (16 + Math.random() * 30) + "px";
+
+  document.body.appendChild(h);
+
+  setTimeout(()=>h.remove(),7000);
+},300);
+/* CALENDAR */
+function buildCalendar(){
+  const calendar = document.getElementById("calendar");
+
+  const year = weddingDate.getFullYear();
+  const month = weddingDate.getMonth();
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+
+  for(let i=0;i<firstDay.getDay()-1;i++){
+    calendar.appendChild(document.createElement("div"));
+  }
+
+  for(let d=1; d<=lastDay.getDate(); d++){
+    let day = document.createElement("div");
+    day.classList.add("day");
+    day.innerText = d;
+
+    if(d === weddingDate.getDate()){
+      day.classList.add("wedding");
+    }
+
+    calendar.appendChild(day);
+  }
+}
+
+/* COUNTDOWN */
+setInterval(()=>{
+  let now = new Date().getTime();
+  let diff = weddingDate - now;
+
+  if(diff < 0) diff = 0;
+
+  let days = Math.floor(diff/(1000*60*60*24));
+  let hours = Math.floor((diff/(1000*60*60))%24);
+  let minutes = Math.floor((diff/(1000*60))%60);
+  let seconds = Math.floor((diff/1000)%60);
+
+  document.getElementById("countdown").innerHTML =
+  `${days}д : ${hours}ч : ${minutes}м : ${seconds}с`;
+},1000);
+
+/* SCRATCH */
+const canvas = document.getElementById("scratchCanvas");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+function resize(){
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+
+  ctx.fillStyle = "gold";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.globalCompositeOperation = "destination-out";
+}
+resize();
+window.addEventListener("resize",resize);
+
+function scratch(e){
+  if(!drawing) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  ctx.beginPath();
+  ctx.arc(x,y,25,0,Math.PI*2);
+  ctx.fill();
+
+  const pixels = ctx.getImageData(0,0,canvas.width,canvas.height);
+  let cleared = 0;
+
+  for(let i=0;i<pixels.data.length;i+=4){
+    if(pixels.data[i+3] === 0) cleared++;
+  }
+
+  let percent = (cleared / (canvas.width*canvas.height)) * 100;
+
+  if(percent > 70){
+    canvas.remove();
+  }
+}
+
+/* EVENTS */
+canvas.addEventListener("mousedown",()=>drawing=true);
+canvas.addEventListener("mouseup",()=>drawing=false);
+canvas.addEventListener("mousemove",scratch);
+
+canvas.addEventListener("touchstart",()=>drawing=true);
+canvas.addEventListener("touchend",()=>drawing=false);
+canvas.addEventListener("touchmove",(e)=>{
+  scratch(e.touches[0]);
+});
+
+buildCalendar();
+
+
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+let isPlaying = false;
+
+/* 🎵 попытка автозапуска */
+window.addEventListener("load", async () => {
+  try {
+    await bgMusic.play();
+    musicBtn.innerHTML = "🔊";
+    isPlaying = true;
+  } catch (e) {
+    console.log("Автозапуск заблокирован браузером");
+  }
+});
+
+/* 🔊 кнопка включения/выключения */
+musicBtn.addEventListener("click", () => {
+  if (!isPlaying) {
+    bgMusic.play();
+    musicBtn.innerHTML = "🔊";
+    isPlaying = true;
+  } else {
+    bgMusic.pause();
+    musicBtn.innerHTML = "🔇";
+    isPlaying = false;
+  }
+});
+
+/* 🎯 запуск при первом клике в любом месте (100% работает) */
+document.addEventListener("click", () => {
+  if (!isPlaying) {
+    bgMusic.play();
+    musicBtn.innerHTML = "🔊";
+    isPlaying = true;
+  }
+}, { once: true });
+
+
+
+const elements = document.querySelectorAll(".fadeUp");
+
+function showOnScroll(){
+  const trigger = window.innerHeight * 0.85;
+
+  elements.forEach(el=>{
+    const top = el.getBoundingClientRect().top;
+
+    if(top < trigger){
+      el.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", showOnScroll);
+showOnScroll();
+
+
+</script>
+
+</body>
+</html>
